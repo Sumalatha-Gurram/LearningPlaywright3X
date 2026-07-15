@@ -1,0 +1,12 @@
+var Name="Suma";
+console.log(Name);
+var name="Latha";
+console.log(name);
+let firstName="Sumalatha";
+console.log(firstName);
+let userName="Sumalatha.G";
+console.log(userName);
+let totalAmount=1000;
+console.log(totalAmount);
+let isLoggedIn=true;
+console.log(isLoggedIn);

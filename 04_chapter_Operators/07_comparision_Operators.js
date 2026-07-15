@@ -1,0 +1,11 @@
+console.log(10 > 5); // Output: true
+console.log(10 < 5); // Output: false
+console.log(5 >= 5); // Output: true
+console.log(10 <= 5); // Output: false
+console.log(10 == 5); // Output: false
+console.log(10 != 5); // Output: true
+console.log(10 == "10"); // Output: true
+console.log(10 === "10"); // Output: false
+let sum = 10 + 5;
+console.log(sum == "suma"); // Output: true
+console.log(sum === "suma"); // Output: false
