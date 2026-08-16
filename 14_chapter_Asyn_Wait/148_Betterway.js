@@ -1,6 +1,6 @@
 function openBrowser() {
     return new Promise(function (resolve) {
-        resolve("Browser opened!");
+        resolve("Browser opened");
     });
 }
 
