@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Async Cheat Sheet</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+      line-height: 1.6;
+    }
+    .item {
+      margin-bottom: 18px;
+    }
+    .code {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-top: 6px;
+      overflow-x: auto;
+    }
+    pre {
+      margin: 0;
+      font-family: Consolas, monospace;
+    }
+  </style>
+</head>
+<body>
+  <h1>Async Cheat Sheet</h1>
+
+  <div class="item">
+    <strong>Callback:</strong> function passed to another function and called later.
+    <div class="code"><pre>setTimeout(() => console.log("done"), 1000);</pre></div>
+    <p>But the real problem is not the callback itself — it is nested callbacks.</p>
+    <div class="code"><pre>step1(() => {
+  step2(() => {
+    step3(() => {
+      console.log("Done");
+    });
+  });
+});</pre></div>
+    <p>That shape is hard to read and hard to debug. This is callback hell.</p>
+    <div class="code"><pre>readUser((err, user) => {
+  if (err) return callback(err);
+
+  readOrders(user.id, (err, orders) => {
+    if (err) return callback(err);
+
+    readDetails(orders[0], (err, details) => {
+      if (err) return callback(err);
+
+      callback(null, { user, orders, details });
+    });
+  });
+});</pre></div>
+    <p>Callbacks also use the error-first convention: callback(err, data)</p>
+    <div class="code"><pre>function readFile(callback) {
+  const error = null;
+  const data = "file content";
+  callback(error, data);
+}
+
+readFile((err, data) => {
+  if (err) {
+    console.log("Error:", err);
+    return;
+  }
+  console.log(data);
+});</pre></div>
+    <p><em>Interview answer: callback is the oldest async pattern, but nesting makes code difficult to read.</em></p>
+  </div>
+
+  <div class="item">
+    <strong>new Promise:</strong> creates async work with resolve/reject.
+    <div class="code"><pre>new Promise((resolve, reject) => {
+  resolve("OK");
+});</pre></div>
+    <p><em>Interview answer: Promise gives a cleaner way to represent a future value and its success/failure.</em></p>
+  </div>
+
+  <div class="item">
+    <strong>async:</strong> makes a function return a Promise.
+    <div class="code"><pre>async function demo() {
+  return "Hello";
+}</pre></div>
+    <p><em>Interview answer: async tells JavaScript that this function is asynchronous and returns a Promise.</em></p>
+  </div>
+
+  <div class="item">
+    <strong>await:</strong> waits for a Promise inside async function.
+    <div class="code"><pre>async function demo() {
+  const x = await Promise.resolve("Hi");
+  console.log(x);
+}</pre></div>
+    <p><em>Interview answer: await pauses execution until the Promise settles, making async code look synchronous.</em></p>
+  </div>
+
+  <div class="item">
+    <strong>Promise.all:</strong> waits for all promises; one failure fails all.
+    <div class="code"><pre>Promise.all([p1, p2, p3]);</pre></div>
+    <p><em>Interview answer: use Promise.all when all tasks must complete; if one rejects, the whole operation rejects.</em></p>
+  </div>
+
+  <div class="item">
+    <strong>Promise.race:</strong> first promise to settle wins.
+    <div class="code"><pre>Promise.race([p1, p2]);</pre></div>
+    <p><em>Interview answer: use Promise.race for timeout or first-response-wins logic; it settles on the first result or failure.</em></p>
+  </div>
+
+  <div class="item">
+    <strong>try/catch + await:</strong> handles async errors cleanly.
+    <div class="code"><pre>async function test() {
+  try {
+    await Promise.reject("Error");
+  } catch (e) {
+    console.log(e);
+  }
+}</pre></div>
+    <p><em>Interview answer: try/catch makes async failure handling feel like normal JavaScript error handling.</em></p>
+  </div>
+
+  <div class="item">
+    <strong>Scenarios:</strong>
+    <ul>
+      <li><strong>Callback:</strong> event listeners, timers, old APIs, file operations.</li>
+      <li><strong>new Promise:</strong> wrap custom async logic such as a network request or database read.</li>
+      <li><strong>async/await:</strong> fetch API data, login flow, sequential steps in one readable function.</li>
+      <li><strong>Promise.all:</strong> load 3 independent API calls together: user, orders, profile.</li>
+      <li><strong>Promise.race:</strong> timeout handling or first response wins from multiple servers.</li>
+      <li><strong>try/catch + await:</strong> handle 404, 500, or failed login in a clean way.</li>
+      <li><strong>Playwright:</strong> await page.click(), await page.fill(), await expect(locator).toBeVisible().</li>
+    </ul>
+  </div>
+</body>
+</html>
