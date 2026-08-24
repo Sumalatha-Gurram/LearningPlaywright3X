@@ -103,6 +103,20 @@ readFile((err, data) => {
   </div>
 
   <div class="item">
+    <strong>Promise.allSettled:</strong> waits for every promise and returns every result, including failures.
+    <div class="code"><pre>const results = await Promise.allSettled([p1, p2, p3]);
+
+results.forEach((result) => {
+  if (result.status === "fulfilled") {
+    console.log("Success:", result.value);
+  } else {
+    console.log("Failure:", result.reason);
+  }
+});</pre></div>
+    <p><em>Interview answer: use Promise.allSettled when every task matters and you need both successful values and failure reasons.</em></p>
+  </div>
+
+  <div class="item">
     <strong>Promise.race:</strong> first promise to settle wins.
     <div class="code"><pre>Promise.race([p1, p2]);</pre></div>
     <p><em>Interview answer: use Promise.race for timeout or first-response-wins logic; it settles on the first result or failure.</em></p>
@@ -127,6 +141,7 @@ readFile((err, data) => {
       <li><strong>new Promise:</strong> wrap custom async logic such as a network request or database read.</li>
       <li><strong>async/await:</strong> fetch API data, login flow, sequential steps in one readable function.</li>
       <li><strong>Promise.all:</strong> load 3 independent API calls together: user, orders, profile.</li>
+      <li><strong>Promise.allSettled:</strong> collect every API result even when one or more requests fail.</li>
       <li><strong>Promise.race:</strong> timeout handling or first response wins from multiple servers.</li>
       <li><strong>try/catch + await:</strong> handle 404, 500, or failed login in a clean way.</li>
       <li><strong>Playwright:</strong> await page.click(), await page.fill(), await expect(locator).toBeVisible().</li>
