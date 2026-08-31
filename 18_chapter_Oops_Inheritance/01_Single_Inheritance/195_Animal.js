@@ -9,7 +9,7 @@ class Animal {
         console.log(this.name + " is sleeping");
     }
     foo(){
-        console.log("Foo Called!");
+        console.log("Foo Called");
     }
 }
 class Dog extends Animal {
@@ -19,7 +19,7 @@ class Dog extends Animal {
     }
     bark() {
         super.foo();
-        console.log(this.name, " is barking!")
+        console.log(this.name + " is barking!");
     }
 }
 let dog = new Dog("Rex", "Labrador");
