@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "run:203": "tsx ./21_chapter_Typescript/203_Test.ts",
+    "run:204": "tsx ./21_chapter_Typescript/204_Test2.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.13"
+  }
+}
